@@ -1,1 +1,80 @@
 /* styles.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 160px;
+  background: linear-gradient(to bottom, #23272f, #181a20);
+  color: #f3f4f6;
+  padding: 12px 6px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  height: 96vh;
+  margin: 2vh 0;
+  overflow: hidden;
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 30px;
+  align-self: flex-start;
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 0 1 auto;
+  justify-content: center;
+  gap: 4px;
+}
+
+.nav li {
+  padding: 7px 4px;
+  margin-bottom: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s;
+  font-size: 0.95em;
+}
+
+.nav li span {
+  margin-right: 10px;
+  font-size: 1.2em;
+}
+
+.nav li:hover {
+  background-color: #047857;
+}
+
+.nav li.active {
+  background-color: #059669;
+}
+
+
+.main-content {
+  flex: 1;
+  background-color: #f9fafb;
+  padding: 30px;
+}
+
+
+
+/* Main content styles */
