@@ -58,7 +58,25 @@ new Chart(ctx, {
     },
     scales: {
       x: {
-        ticks: { color: "#fff" },
+        type: 'category',
+        display: true,
+        title: {
+          display: false
+        },
+        ticks: {
+          color: "#222",
+          font: { size: 12 },
+          callback: function(value, index, ticks) {
+            // Ensure format HH:MM
+            const label = this.getLabelForValue(value);
+            if (/^\d{2}:\d{2}$/.test(label)) return label;
+            // fallback: try to format
+            if (typeof label === "string" && label.length === 4) {
+              return label.slice(0,2) + ":" + label.slice(2);
+            }
+            return label;
+          }
+        },
         grid: { color: "rgba(255,255,255,0.1)" },
       },
       y: {
