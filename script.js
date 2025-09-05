@@ -14,7 +14,7 @@ new Chart(ctx, {
     labels: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "22:00"],
     datasets: [
       {
-        label: "Temperature (°C)",
+  label: "Average Temperature (°C)",
         data: [13, 11, 19, 27, 26, 19, 21],
         borderColor: "#ff7300",
         borderWidth: 2,
@@ -246,7 +246,7 @@ function getEnergyChartData() {
         tension: 0.4,
       },
       {
-        label: "Wind Energy (kWh)",
+  label: "Average Wind Energy (kWh)",
         data: windData.slice(energyStart, energyStart + energyRange),
         borderColor: "#00c49f",
         borderWidth: 2,
