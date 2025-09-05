@@ -1,10 +1,12 @@
 
-// Register Chart.js annotation plugin
+
+// Register Chart.js annotation plugin (CDN global)
 if (window['chartjs-plugin-annotation']) {
   Chart.register(window['chartjs-plugin-annotation']);
 }
 
 const ctx = document.getElementById("monitoringChart").getContext("2d");
+
 
 new Chart(ctx, {
   type: "line",

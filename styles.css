@@ -2,6 +2,14 @@
   height: 350px !important;
   max-height: 350px;
 }
+#monitoringChart {
+  height: 350px !important;
+  max-height: 350px;
+  border: 2px solid #d1d5db;
+  border-radius: 16px;
+  background: rgba(21, 41, 75, 0.35);
+  box-sizing: border-box;
+}
 .nav li {
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
   border-radius: 8px;
@@ -114,9 +122,10 @@ body {
 .card .value {
   font-size: 1.5rem;
   font-weight: bold;
+  color: #fff;
 }
 
 .card .subtext {
   font-size: 0.8rem;
-  color: #cbd5e1;
+  color: #fff;
 }
