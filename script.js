@@ -160,3 +160,61 @@ new Chart(ctx, {
     },
   ],
 });
+
+
+
+const soilCtx = document.getElementById("soilChart").getContext("2d");
+
+// Simulated soil data
+const soilLabels = ["00:00","04:00","08:00","12:00","16:00","20:00","22:00"];
+const soilData = [45, 50, 60, 65, 70, 55, 50]; // Replace with live data
+
+let soilStart = 0;
+let soilRange = 7;
+
+function getSoilChartData() {
+  return {
+    labels: soilLabels.slice(soilStart, soilStart + soilRange),
+    datasets: [{
+      label: "Soil Moisture (%)",
+      data: soilData.slice(soilStart, soilStart + soilRange),
+      borderColor: "#00c49f",
+      borderWidth: 2,
+      pointRadius: 0,
+      tension: 0.4,
+    }]
+  };
+}
+
+const soilChart = new Chart(soilCtx, {
+  type: "line",
+  data: getSoilChartData(),
+  options: {
+    responsive: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: { labels: { color: "#fff" } },
+      tooltip: { enabled: true, backgroundColor: "#1f3b5c", titleColor: "#fff", bodyColor: "#fff" },
+    },
+    scales: {
+      x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+      y: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+    }
+  }
+});
+
+
+// Sidebar navigation tab switching
+document.querySelectorAll('.nav li').forEach((tab, idx) => {
+  tab.addEventListener('click', () => {
+    // Tab IDs in order
+    const tabIds = ['dashboard', 'growth', 'irrigation', 'energy', 'garden'];
+    tabIds.forEach(id => {
+      document.getElementById(id).classList.remove('active');
+    });
+    document.getElementById(tabIds[idx]).classList.add('active');
+    // Optional: highlight active tab
+    document.querySelectorAll('.nav li').forEach(li => li.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
