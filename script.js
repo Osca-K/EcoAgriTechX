@@ -47,7 +47,22 @@ new Chart(ctx, {
     },
     plugins: {
       legend: {
-        labels: { color: "#fff" },
+        labels: {
+          color: "#222",
+          font: { size: 14 },
+          generateLabels: function(chart) {
+            return chart.data.datasets.map(function(dataset, i) {
+              return {
+                text: dataset.label,
+                fillStyle: dataset.borderColor,
+                strokeStyle: dataset.borderColor,
+                lineWidth: 2,
+                hidden: !chart.isDatasetVisible(i),
+                index: i
+              };
+            });
+          }
+        }
       },
       tooltip: {
         enabled: true,
