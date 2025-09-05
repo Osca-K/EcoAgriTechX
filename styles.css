@@ -67,7 +67,7 @@ body {
   display: none;                 /* hide by default */
   flex: 1;
   border-radius: 20px;           /* smooth rounded corners */
-  background: #c5ffe8;
+  background: #ffffff;
   box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
   padding: 30px;
   min-height: 75vh;              /* fills most of right area */
@@ -75,4 +75,67 @@ body {
 
 .tab-background.active {
   display: block;                /* show only active tab */
+}
+
+
+
+
+
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.card {
+  background: #15294b;
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+
+.card .value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card .subtext {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+
+
+.chart-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.chart-wrapper button {
+  background: #15294b;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chart-wrapper button:hover {
+  background: #1aa65d;
 }
