@@ -218,3 +218,74 @@ document.querySelectorAll('.nav li').forEach((tab, idx) => {
     tab.classList.add('active');
   });
 });
+
+
+
+
+
+const energyCtx = document.getElementById("energyChart").getContext("2d");
+
+// Simulated datasets
+const energyLabels = ["00:00","04:00","08:00","12:00","16:00","20:00","22:00"];
+const solarData = [10, 20, 50, 70, 90, 80, 60];
+const windData  = [30, 40, 60, 80, 120, 100, 70];
+
+let energyStart = 0;
+let energyRange = 7;
+
+function getEnergyChartData() {
+  return {
+    labels: energyLabels.slice(energyStart, energyStart + energyRange),
+    datasets: [
+      {
+        label: "Solar Energy (kWh)",
+        data: solarData.slice(energyStart, energyStart + energyRange),
+        borderColor: "#ff7300",
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.4,
+      },
+      {
+        label: "Wind Energy (kWh)",
+        data: windData.slice(energyStart, energyStart + energyRange),
+        borderColor: "#00c49f",
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.4,
+      }
+    ]
+  };
+}
+
+const energyChart = new Chart(energyCtx, {
+  type: "line",
+  data: getEnergyChartData(),
+  options: {
+    responsive: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: { labels: { color: "#fff" } },
+      tooltip: { enabled: true, backgroundColor: "#1f3b5c", titleColor: "#fff", bodyColor: "#fff" },
+    },
+    scales: {
+      x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+      y: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+    }
+  }
+});
+
+// Navigation buttons
+document.getElementById("energyNextBtn").addEventListener("click", () => {
+  if (energyStart + energyRange < energyLabels.length) {
+    energyStart++;
+    energyChart.data = getEnergyChartData();
+    energyChart.update();
+  }
+});
+document.getElementById("energyPrevBtn").addEventListener("click", () => {
+  if (energyStart > 0) {
+    energyStart--;
+    energyChart.data = getEnergyChartData();
+    energyChart.update();
+  }
+});
