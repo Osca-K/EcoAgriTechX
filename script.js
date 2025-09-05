@@ -1,3 +1,9 @@
+
+// Register Chart.js annotation plugin
+if (window['chartjs-plugin-annotation']) {
+  Chart.register(window['chartjs-plugin-annotation']);
+}
+
 const ctx = document.getElementById("monitoringChart").getContext("2d");
 
 new Chart(ctx, {
@@ -12,6 +18,8 @@ new Chart(ctx, {
         borderWidth: 2,
         pointRadius: 0, // 🔹 remove dots
         tension: 0.4,   // smooth curve
+        fill: true,
+        backgroundColor: "rgba(255, 115, 0, 0.15)",
       },
       {
         label: "Soil Moisture (%)",
@@ -20,6 +28,8 @@ new Chart(ctx, {
         borderWidth: 2,
         pointRadius: 0,
         tension: 0.4,
+        fill: true,
+        backgroundColor: "rgba(0, 196, 159, 0.15)",
       },
       {
         label: "Water Usage (L)",
@@ -28,6 +38,8 @@ new Chart(ctx, {
         borderWidth: 2,
         pointRadius: 0,
         tension: 0.4,
+        fill: true,
+        backgroundColor: "rgba(0, 136, 254, 0.15)",
       },
       {
         label: "Electricity (kWh)",
@@ -36,6 +48,8 @@ new Chart(ctx, {
         borderWidth: 2,
         pointRadius: 0,
         tension: 0.4,
+        fill: true,
+        backgroundColor: "rgba(255, 0, 0, 0.15)",
       },
     ],
   },
@@ -69,6 +83,26 @@ new Chart(ctx, {
         backgroundColor: "#1f3b5c",
         titleColor: "#fff",
         bodyColor: "#fff",
+      },
+      annotation: {
+        annotations: {
+          irrigationSegment: {
+            type: 'box',
+            xMin: '12:00',
+            xMax: '16:00',
+            yMin: 0,
+            yMax: 15,
+            backgroundColor: 'rgba(0, 200, 255, 0.18)',
+            borderWidth: 0,
+            label: {
+              display: true,
+              content: 'Irrigation',
+              position: 'center',
+              color: '#0088fe',
+              font: { size: 13, weight: 'bold' }
+            }
+          }
+        }
       },
     },
     scales: {
