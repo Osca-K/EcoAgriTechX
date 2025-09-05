@@ -1,3 +1,17 @@
+.energy-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+}
+.small-energy-card {
+  height: 90px;
+  min-height: 0;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 #monitoringChart {
   height: 350px !important;
   max-height: 350px;
