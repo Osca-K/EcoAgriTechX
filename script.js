@@ -397,3 +397,63 @@ function initIrrigationChart() {
 
 // Call when DOM is ready
 document.addEventListener("DOMContentLoaded", initIrrigationChart);
+
+
+
+//Garden
+function drawGarden() {
+  const canvas = document.getElementById("gardenCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const cols = ["A","B","C","D"];
+  const rows = [1,2,3,4];
+  const cellWidth = canvas.width / cols.length;
+  const cellHeight = canvas.height / rows.length;
+
+  // Example sensor statuses
+  const activeSensors = ["A1","B2","C3","D4","A2","B3","C1","D2","C4","B4","A3","D1"];
+  const inactiveSensors = ["B1","D3","C2"];
+
+  // Draw grid
+  ctx.strokeStyle = "#fff";
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= cols.length; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * cellWidth, 0);
+    ctx.lineTo(i * cellWidth, canvas.height);
+    ctx.stroke();
+  }
+  for (let j = 0; j <= rows.length; j++) {
+    ctx.beginPath();
+    ctx.moveTo(0, j * cellHeight);
+    ctx.lineTo(canvas.width, j * cellHeight);
+    ctx.stroke();
+  }
+
+  // Draw sensors
+  ctx.font = "14px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  rows.forEach((r, rowIndex) => {
+    cols.forEach((c, colIndex) => {
+      const sensor = `${c}${r}`;
+      const x = colIndex * cellWidth + cellWidth / 2;
+      const y = rowIndex * cellHeight + cellHeight / 2;
+
+      let isActive = activeSensors.includes(sensor);
+      let color = isActive ? "green" : "red";
+
+      ctx.beginPath();
+      ctx.arc(x, y, 20, 0, 2 * Math.PI);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.fillStyle = "#fff";
+      ctx.fillText(sensor, x, y);
+    });
+  });
+}
+
+document.addEventListener("DOMContentLoaded", drawGarden);
