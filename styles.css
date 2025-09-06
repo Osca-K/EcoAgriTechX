@@ -177,9 +177,9 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
-  border: 2px solid #1aa65d;
+  border: 2px solid #02101f;
   border-radius: 12px;
   padding: 10px;
-  background: #15294b;
+  background: rgb(252, 252, 252); /* white */
 }
 

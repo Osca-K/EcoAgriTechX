@@ -405,14 +405,27 @@ function drawGarden() {
   const canvas = document.getElementById("gardenCanvas");
   const ctx = canvas.getContext("2d");
 
-  const cols = ["A","B","C","D"];
-  const rows = [1,2,3,4];
+  // 10 columns (A–J), 5 rows (1–5)
+  const cols = ["A","B","C","D","E","F","G","H","I","J"];
+  const rows = [1,2,3,4,5];
   const cellWidth = canvas.width / cols.length;
   const cellHeight = canvas.height / rows.length;
 
   // Example sensor statuses
-  const activeSensors = ["A1","B2","C3","D4","A2","B3","C1","D2","C4","B4","A3","D1"];
-  const inactiveSensors = ["B1","D3","C2"];
+  // Only 4 sensors inactive, all others active
+  const inactiveSensors = ["B1","D2","H5","I2"];
+  const activeSensors = [];
+  cols.forEach(c => {
+    rows.forEach(r => {
+      const sensor = `${c}${r}`;
+      if (!inactiveSensors.includes(sensor)) {
+        activeSensors.push(sensor);
+      }
+    });
+  });
+
+  // Clear canvas before drawing
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Draw grid
   ctx.strokeStyle = "#fff";
@@ -430,7 +443,7 @@ function drawGarden() {
     ctx.stroke();
   }
 
-  // Draw sensors
+  // Draw sensors inside each cell
   ctx.font = "14px Arial";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -444,14 +457,14 @@ function drawGarden() {
       let isActive = activeSensors.includes(sensor);
       let color = isActive ? "green" : "red";
 
-      ctx.beginPath();
-      ctx.arc(x, y, 20, 0, 2 * Math.PI);
-      ctx.strokeStyle = color;
-      ctx.lineWidth = 3;
-      ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x, y, Math.min(cellWidth, cellHeight) / 3, 0, 2 * Math.PI); // increased radius
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5; // thinner outline
+  ctx.stroke();
 
-      ctx.fillStyle = "#fff";
-      ctx.fillText(sensor, x, y);
+  ctx.fillStyle = "#000";
+  ctx.fillText(sensor, x, y);
     });
   });
 }
