@@ -289,3 +289,111 @@ document.getElementById("energyPrevBtn").addEventListener("click", () => {
     energyChart.update();
   }
 });
+
+
+
+// Irrigation Chart (combined water + energy)
+function initIrrigationChart() {
+  const ctx = document.getElementById("irrigationChart").getContext("2d");
+
+  // Example dataset
+  const labels = ["06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00"];
+  const waterData = [0, 50, 100, 100, 50, 0, 0, 0, 70, 0];
+  const energyData = [0, 5, 10, 10, 5, 0, 0, 0, 8, 0];
+
+  let start = 0;
+  let range = 7;
+
+  function getChartData() {
+    return {
+      labels: labels.slice(start, start + range),
+      datasets: [
+        {
+          label: "Water Usage (L)",
+          data: waterData.slice(start, start + range),
+          borderColor: "#0088fe",
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true,
+          backgroundColor: "rgba(0,136,254,0.2)"
+        },
+        {
+          label: "Energy Usage (kWh)",
+          data: energyData.slice(start, start + range),
+          borderColor: "#ff7300",
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true,
+          backgroundColor: "rgba(255,115,0,0.2)"
+        }
+      ]
+    };
+  }
+
+  const irrigationChart = new Chart(ctx, {
+    type: "line",
+    data: getChartData(),
+    options: {
+      responsive: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { labels: { color: "#fff" } },
+        tooltip: {
+          enabled: true,
+          backgroundColor: "#1f3b5c",
+          titleColor: "#fff",
+          bodyColor: "#fff"
+        },
+      },
+      scales: {
+        x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+        y: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+      }
+    },
+    plugins: [
+      {
+        id: "verticalLine",
+        afterDraw: (chart) => {
+          if (chart.tooltip?._active?.length) {
+            const ctx = chart.ctx;
+            const activePoint = chart.tooltip._active[0].element;
+            const x = activePoint.x;
+            const topY = chart.scales.y.top;
+            const bottomY = chart.scales.y.bottom;
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, topY);
+            ctx.lineTo(x, bottomY);
+            ctx.lineWidth = 1.5;
+            ctx.strokeStyle = "rgba(255,255,255,0.5)";
+            ctx.stroke();
+            ctx.restore();
+          }
+        },
+      },
+    ]
+  });
+
+  // Navigation buttons
+  document.getElementById("irrigNextBtn").addEventListener("click", () => {
+    if (start + range < labels.length) {
+      start++;
+      irrigationChart.data = getChartData();
+      irrigationChart.update();
+    }
+  });
+
+  document.getElementById("irrigPrevBtn").addEventListener("click", () => {
+    if (start > 0) {
+      start--;
+      irrigationChart.data = getChartData();
+      irrigationChart.update();
+    }
+  });
+}
+
+// Call when DOM is ready
+document.addEventListener("DOMContentLoaded", initIrrigationChart);
