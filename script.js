@@ -251,21 +251,25 @@ const soilChart = new Chart(soilCtx, {
 
 
 // Sidebar navigation tab switching
+const tabIds = ['dashboard', 'growth', 'irrigation', 'energy', 'garden'];
 document.querySelectorAll('.nav li').forEach((tab, idx) => {
   tab.addEventListener('click', () => {
-    // Tab IDs in order
-    const tabIds = ['dashboard', 'growth', 'irrigation', 'energy', 'garden'];
     tabIds.forEach(id => {
       document.getElementById(id).classList.remove('active');
     });
     document.getElementById(tabIds[idx]).classList.add('active');
-    // Optional: highlight active tab
     document.querySelectorAll('.nav li').forEach(li => li.classList.remove('active'));
     tab.classList.add('active');
+
+    // Re-initialize charts/canvas when tab is activated
+    if (tabIds[idx] === 'irrigation') {
+      initIrrigationChart();
+    }
+    if (tabIds[idx] === 'garden') {
+      drawGarden();
+    }
   });
 });
-
-
 
 
 
@@ -349,13 +353,12 @@ document.getElementById("energyPrevBtn").addEventListener("click", () => {
 function initIrrigationChart() {
   const ctx = document.getElementById("irrigationChart").getContext("2d");
 
-  // Example dataset
   const labels = ["06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00"];
   const waterData = [0, 50, 100, 100, 50, 0, 0, 0, 70, 0];
   const energyData = [0, 5, 10, 10, 5, 0, 0, 0, 8, 0];
 
   let start = 0;
-  let range = 7;
+  let range = 10; // show all 10 columns
 
   function getChartData() {
     return {
@@ -365,100 +368,48 @@ function initIrrigationChart() {
           label: "Water Usage (L)",
           data: waterData.slice(start, start + range),
           borderColor: "#0088fe",
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.4,
+          backgroundColor: "rgba(0,136,254,0.2)",
           fill: true,
-          backgroundColor: "rgba(0,136,254,0.2)"
+          borderWidth: 2,
+          tension: 0.4,
+          pointRadius: 0,
         },
         {
           label: "Energy Usage (kWh)",
           data: energyData.slice(start, start + range),
           borderColor: "#ff7300",
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.4,
+          backgroundColor: "rgba(255,115,0,0.2)",
           fill: true,
-          backgroundColor: "rgba(255,115,0,0.2)"
+          borderWidth: 2,
+          tension: 0.4,
+          pointRadius: 0,
         }
       ]
     };
   }
 
-  const irrigationChart = new Chart(ctx, {
+  // Destroy old chart if exists
+  if (window._irrigationChartInstance) {
+    window._irrigationChartInstance.destroy();
+  }
+
+  window._irrigationChartInstance = new Chart(ctx, {
     type: "line",
-    data: {
-      labels: ["06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00"],
-      datasets: [
-        {
-          label: "Water Usage (L)",
-          data: [0, 50, 100, 100, 50, 0, 0, 0, 70, 0],
-          borderColor: "#0088fe",
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.4,
-          fill: true,
-          backgroundColor: "rgba(0,136,254,0.2)"
-        },
-        {
-          label: "Energy Usage (kWh)",
-          data: [0, 5, 10, 10, 5, 0, 0, 0, 8, 0],
-          borderColor: "#ff7300",
-          borderWidth: 2,
-          pointRadius: 0,
-          tension: 0.4,
-          fill: true,
-          backgroundColor: "rgba(255,115,0,0.2)"
-        }
-      ]
-    },
+    data: getChartData(),
     options: {
       responsive: true,
       maintainAspectRatio: false,
-      interaction: { mode: "index", intersect: false },
       plugins: {
-        legend: { labels: { color: "#222", font: { size: 14 } } },
-        tooltip: {
-          enabled: true,
-          backgroundColor: "#1f3b5c",
-          titleColor: "#fff",
-          bodyColor: "#fff"
-        },
+        legend: { labels: { color: "#222" } },
+        tooltip: { enabled: true }
       },
       scales: {
-        x: {
-          ticks: { color: "#222" },
-          grid: { color: "rgba(255,255,255,0.1)" },
-          title: { display: true, text: "Time", color: "#222" },
-          type: "category",
-        },
-        y: { ticks: { color: "#222" }, grid: { color: "rgba(255,255,255,0.1)" } },
+        x: { ticks: { color: "#222" }, grid: { color: "rgba(0,0,0,0.05)" } },
+        y: { ticks: { color: "#222" }, grid: { color: "rgba(0,0,0,0.05)" } },
       }
-    },
-    plugins: [
-      {
-        id: "verticalLine",
-        afterDraw: (chart) => {
-          if (chart.tooltip?._active?.length) {
-            const ctx = chart.ctx;
-            const activePoint = chart.tooltip._active[0].element;
-            const x = activePoint.x;
-            const topY = chart.scales.y.top;
-            const bottomY = chart.scales.y.bottom;
-
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(x, topY);
-            ctx.lineTo(x, bottomY);
-            ctx.lineWidth = 1.5;
-            ctx.strokeStyle = "rgba(255,255,255,0.5)";
-            ctx.stroke();
-            ctx.restore();
-          }
-        },
-      },
-    ]
+    }
   });
+}
 
   // Navigation buttons
   document.getElementById("irrigNextBtn").addEventListener("click", () => {
@@ -476,7 +427,7 @@ function initIrrigationChart() {
       irrigationChart.update();
     }
   });
-}
+
 
 // Call when DOM is ready
 document.addEventListener("DOMContentLoaded", initIrrigationChart);
