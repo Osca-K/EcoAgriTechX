@@ -1,5 +1,3 @@
-
-
 // Register Chart.js annotation plugin (CDN global)
 if (window['chartjs-plugin-annotation']) {
   Chart.register(window['chartjs-plugin-annotation']);
@@ -309,15 +307,22 @@ const energyChart = new Chart(energyCtx, {
   type: "line",
   data: getEnergyChartData(),
   options: {
-    responsive: false,
+    responsive: true,
+    maintainAspectRatio: false,
     interaction: { mode: "index", intersect: false },
     plugins: {
-      legend: { labels: { color: "#fff" } },
+      legend: { labels: { color: "#222", font: { size: 14 } } },
       tooltip: { enabled: true, backgroundColor: "#1f3b5c", titleColor: "#fff", bodyColor: "#fff" },
     },
     scales: {
-      x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
-      y: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+      x: {
+        ticks: { color: "#222" },
+        grid: { color: "rgba(255,255,255,0.1)" },
+        title: { display: true, text: "Time", color: "#222" },
+        type: "category",
+        labels: energyLabels,
+      },
+      y: { ticks: { color: "#222" }, grid: { color: "rgba(255,255,255,0.1)" } },
     }
   }
 });
@@ -382,12 +387,37 @@ function initIrrigationChart() {
 
   const irrigationChart = new Chart(ctx, {
     type: "line",
-    data: getChartData(),
+    data: {
+      labels: ["06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00"],
+      datasets: [
+        {
+          label: "Water Usage (L)",
+          data: [0, 50, 100, 100, 50, 0, 0, 0, 70, 0],
+          borderColor: "#0088fe",
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true,
+          backgroundColor: "rgba(0,136,254,0.2)"
+        },
+        {
+          label: "Energy Usage (kWh)",
+          data: [0, 5, 10, 10, 5, 0, 0, 0, 8, 0],
+          borderColor: "#ff7300",
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.4,
+          fill: true,
+          backgroundColor: "rgba(255,115,0,0.2)"
+        }
+      ]
+    },
     options: {
-      responsive: false,
+      responsive: true,
+      maintainAspectRatio: false,
       interaction: { mode: "index", intersect: false },
       plugins: {
-        legend: { labels: { color: "#fff" } },
+        legend: { labels: { color: "#222", font: { size: 14 } } },
         tooltip: {
           enabled: true,
           backgroundColor: "#1f3b5c",
@@ -396,8 +426,13 @@ function initIrrigationChart() {
         },
       },
       scales: {
-        x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
-        y: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+        x: {
+          ticks: { color: "#222" },
+          grid: { color: "rgba(255,255,255,0.1)" },
+          title: { display: true, text: "Time", color: "#222" },
+          type: "category",
+        },
+        y: { ticks: { color: "#222" }, grid: { color: "rgba(255,255,255,0.1)" } },
       }
     },
     plugins: [

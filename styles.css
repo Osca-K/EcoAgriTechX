@@ -192,3 +192,27 @@ body {
   background: rgb(252, 252, 252); /* white */
 }
 
+#irrigationChart {
+  height: 350px !important;
+  max-height: 350px;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 2px solid #d1d5db;
+  border-radius: 16px;
+  background: rgba(21, 41, 75, 0.35);
+  box-sizing: border-box;
+  display: block;
+}
+
+#energyChart {
+  height: 350px !important;
+  max-height: 350px;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 2px solid #d1d5db;
+  border-radius: 16px;
+  background: rgba(21, 41, 75, 0.35);
+  box-sizing: border-box;
+  display: block;
+}
+
