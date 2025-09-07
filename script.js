@@ -188,17 +188,65 @@ function getSoilChartData() {
 
 const soilChart = new Chart(soilCtx, {
   type: "line",
-  data: getSoilChartData(),
+  data: {
+    labels: soilLabels,
+    datasets: [
+      {
+        label: "Soil Moisture (%)",
+        data: soilData,
+        borderColor: "#00c49f",
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.4,
+        fill: true,
+        backgroundColor: "rgba(0, 196, 159, 0.15)",
+      }
+    ]
+  },
   options: {
-    responsive: false,
-    interaction: { mode: "index", intersect: false },
+    responsive: true,
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
     plugins: {
-      legend: { labels: { color: "#fff" } },
-      tooltip: { enabled: true, backgroundColor: "#1f3b5c", titleColor: "#fff", bodyColor: "#fff" },
+      legend: {
+        labels: {
+          color: "#222",
+          font: { size: 14 },
+          generateLabels: function(chart) {
+            return chart.data.datasets.map(function(dataset, i) {
+              return {
+                text: dataset.label,
+                fillStyle: dataset.borderColor,
+                strokeStyle: dataset.borderColor,
+                lineWidth: 2,
+                hidden: !chart.isDatasetVisible(i),
+                index: i
+              };
+            });
+          }
+        }
+      },
+      tooltip: {
+        enabled: true,
+        backgroundColor: "#1f3b5c",
+        titleColor: "#fff",
+        bodyColor: "#fff"
+      }
     },
     scales: {
-      x: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
-      y: { ticks: { color: "#fff" }, grid: { color: "rgba(255,255,255,0.1)" } },
+      x: {
+        ticks: { color: "#222" },
+        grid: { color: "rgba(255,255,255,0.1)" },
+        title: { display: true, text: "Time", color: "#222" },
+        type: "category",
+        labels: soilLabels,
+      },
+      y: {
+        ticks: { color: "#222" },
+        grid: { color: "rgba(255,255,255,0.1)" }
+      }
     }
   }
 });

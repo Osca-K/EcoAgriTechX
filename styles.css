@@ -1,3 +1,14 @@
+#soilChart {
+  height: 350px !important;
+  max-height: 350px;
+  width: 100% !important;
+  max-width: 100% !important;
+  border: 2px solid #d1d5db;
+  border-radius: 16px;
+  background: rgba(21, 41, 75, 0.35);
+  box-sizing: border-box;
+  display: block;
+}
 .energy-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -106,8 +117,6 @@ body {
 
 
 
-
-
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -149,10 +158,10 @@ body {
 
 .chart-wrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 12px;
+  width: 100%;
   margin-bottom: 20px;
+  min-height: 350px;
 }
 
 .chart-wrapper button {
