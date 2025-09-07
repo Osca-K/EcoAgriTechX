@@ -1,220 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>EcoAgriTech Dashboard</title>
-		<link rel="stylesheet" href="styles.css" />
-		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.0/dist/chartjs-plugin-annotation.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.0"></script>
-
-	</head>
-	<body>
-		<div class="background-canvas">
-			<div class="sidebar">
-				<div class="logo">
-					<!--EcoAgriTech-->
-				</div>
-				<ul class="nav">
-					<li><span>📊</span> DASHBOARD</li>
-					<li><span>🌱</span> GROWTH</li>
-					<li><span>🧠</span> IRRIGATION</li>
-					<li><span>⚡</span> ENERGY</li>
-					<li><span>🪴</span> GARDEN</li>
-				</ul>
-			</div>
-			<div class="main-content">
-
-				<!-- Dashboard -->
-				<div id="dashboard" class="tab-background active">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoAgriTech Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.0/dist/chartjs-plugin-annotation.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@4.0.0"></script>
+  </head>
+  <body>
+    <div class="background-canvas">
+      <div class="sidebar">
+        <div class="logo">
+          <!--EcoAgriTech-->
+        </div>
+        <ul class="nav">
+          <li><span>📊</span> DASHBOARD</li>
+          <li><span>🌱</span> GROWTH</li>
+          <li><span>🧠</span> IRRIGATION</li>
+          <li><span>⚡</span> ENERGY</li>
+          <li><span>🪴</span> GARDEN</li>
+        </ul>
+      </div>
+      <div class="main-content">
+        <!-- Dashboard -->
+        <div id="dashboard" class="tab-background active">
           <h2>Overall Analytics Monitoring</h2>
-				
-				<canvas id="monitoringChart"></canvas>
+          <canvas id="monitoringChart"></canvas>
+          <div class="cards">
+            <div class="card">
+              <h3>🌡️ Temperature</h3>
+              <p class="value">21°C</p>
+              <p class="subtext">Stable, slight drop tomorrow</p>
+            </div>
+            <div class="card">
+              <h3>💧 Soil Moisture</h3>
+              <p class="value">55%</p>
+              <p class="subtext">Healthy range for crops</p>
+            </div>
+            <div class="card">
+              <h3>🚰 Water Usage</h3>
+              <p class="value">40 L</p>
+              <p class="subtext">Irrigation efficiency improving</p>
+            </div>
+            <div class="card">
+              <h3>⚡ Electricity</h3>
+              <p class="value">30 kWh</p>
+              <p class="subtext">Within expected levels</p>
+            </div>
+          </div>
+        </div>
+        <!-- Growth -->
+        <div id="growth" class="tab-background">
+          <h2>Soil Growth Analytics</h2>
+          <div class="chart-wrapper">
+            <canvas id="soilChart"></canvas>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>💧 Current Moisture</h3>
+              <p class="value">55%</p>
+              <p class="subtext">Optimal for crop growth</p>
+            </div>
+            <div class="card">
+              <h3>🌱 Soil pH</h3>
+              <p class="value">6.8</p>
+              <p class="subtext">Slightly acidic, ideal range</p>
+            </div>
+            <div class="card">
+              <h3>🪴 Nutrient Levels</h3>
+              <p class="value">Balanced</p>
+              <p class="subtext">Nitrogen & Phosphorus sufficient</p>
+            </div>
+            <div class="card">
+              <h3>📈 Moisture Trend</h3>
+              <p class="value">Stable ↑</p>
+              <p class="subtext">Maintained by irrigation</p>
+            </div>
+          </div>
+        </div>
+        <!-- Irrigation -->
+        <div id="irrigation" class="tab-background">
+          <h2>Irrigation Analytics</h2>
+          <div class="chart-wrapper">
+            <canvas id="irrigationChart"></canvas>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>🚰 Total Water Usage</h3>
+              <p class="value">320 L</p>
+              <p class="subtext">Expected today</p>
+            </div>
+            <div class="card">
+              <h3>⚡ Total Energy Usage</h3>
+              <p class="value">45 kWh</p>
+              <p class="subtext">During irrigation</p>
+            </div>
+            <div class="card">
+              <h3>🕒 Next Irrigation</h3>
+              <p class="value">14:00 - 15:00</p>
+              <p class="subtext">Scheduled time</p>
+            </div>
+            <div class="card">
+              <h3>🌧️ Delay Notice</h3>
+              <p class="value">Expected Rainfall</p>
+              <p class="subtext">Irrigation paused</p>
+            </div>
+          </div>
+        </div>
+        <!-- Energy -->
+        <div id="energy" class="tab-background">
+          <h2>Energy Analytics</h2>
+          <div class="chart-wrapper">
+            <canvas id="energyChart"></canvas>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>🌬️ Wind Energy Generated</h3>
+              <p class="value">120 kWh</p>
+              <p class="subtext">Expected: 150 kWh</p>
+            </div>
+            <div class="card">
+              <h3>☀️ Solar Energy Generated</h3>
+              <p class="value">80 kWh</p>
+              <p class="subtext">Expected: 100 kWh</p>
+            </div>
+            <div class="card">
+              <h3>🌡️ Avg Temperature</h3>
+              <p class="value">35°C</p>
+              <p class="subtext">average temperature of the day</p>
+            </div>
+            <div class="card">
+              <h3>💨 Avg Wind Speed</h3>
+              <p class="value">25 m/s</p>
+              <p class="subtext">Average wind speed of the day</p>
+            </div>
+            <div class="card">
+              <h3>🔋 Battery Health</h3>
+              <p class="value">95%</p>
+              <p class="subtext">System performing optimally</p>
+            </div>
+            <div class="card">
+              <h3>⚡ Available Power</h3>
+              <p class="value">200 kWh</p>
+              <p class="subtext">Power ready for consumption</p>
+            </div>
+            <div class="card">
+              <h3>🕒 Energy Storage Level</h3>
+              <p class="value">65%</p>
+              <p class="subtext">Current battery storage</p>
+            </div>
+            <div class="card">
+              <h3>📊 Efficiency</h3>
+              <p class="value">88%</p>
+              <p class="subtext">Energy conversion efficiency</p>
+            </div>
+          </div>
+        </div>
+        <!-- Garden -->
+        <div id="garden" class="tab-background">
+          <h2>Garden Monitoring</h2>
+          <div class="garden-wrapper">
+            <canvas id="gardenCanvas" width="900" height="350"></canvas>
+          </div>
+          <div class="cards">
+            <div class="card">
+              <h3>🌱 Non-Active Sensors</h3>
+              <p class="value">B1, D2, H5, I2</p>
+              <p class="subtext">Needs Maintenance</p>
+            </div>
+            <div class="card">
+              <h3>📡 Active Sensors</h3>
+              <p class="value">46 / 50</p>
+              <p class="subtext">Online</p>
+            </div>
+            <div class="card">
+              <h3>💧 Moisture Alerts</h3>
+              <p class="value">None</p>
+              <p class="subtext">All sensors normal</p>
+            </div>
+            <div class="card">
+              <h3>� Average Moisture</h3>
+              <p class="value">56%</p>
+              <p class="subtext">Within the range</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-			<div class="cards">
-					<div class="card">
-					<h3>🌡️ Temperature</h3>
-					<p class="value">21°C</p>
-					<p class="subtext">Stable, slight drop tomorrow</p>
-					</div>
-					<div class="card">
-					<h3>💧 Soil Moisture</h3>
-					<p class="value">55%</p>
-					<p class="subtext">Healthy range for crops</p>
-					</div>
-					<div class="card">
-					<h3>🚰 Water Usage</h3>
-					<p class="value">40 L</p>
-					<p class="subtext">Irrigation efficiency improving</p>
-					</div>
-					<div class="card">
-						<h3>⚡ Electricity</h3>
-						<p class="value">30 kWh</p>
-						<p class="subtext">Within expected levels</p>
-					</div>
-				</div>	
+      	<button id="chatbotBtn" class="chatbot-button">💬</button>
 
+	<!-- 🌱 Chatbot Dialog -->
+	<div id="chatbotDialog" class="chatbot-dialog">
+		<div class="chatbot-header">
+			<span>Garden Assistant</span>
+			<button id="closeChatbot" class="close-btn">✖</button>
+		</div>
+		<div class="chatbot-body">
+			<div class="chatbot-messages">
+				<p class="placeholder">👋 Hi! Type your question below.</p>
 			</div>
-
-				<!-- Growth -->
-				<div id="growth" class="tab-background">
-					 <h2>Soil Growth Analytics</h2>
-
-  <div class="chart-wrapper">
-  <canvas id="soilChart"></canvas>
-    
-  </div>
-
-  <div class="cards">
-    <div class="card">
-      <h3>💧 Current Moisture</h3>
-      <p class="value">55%</p>
-      <p class="subtext">Optimal for crop growth</p>
-    </div>
-    <div class="card">
-      <h3>🌱 Soil pH</h3>
-      <p class="value">6.8</p>
-      <p class="subtext">Slightly acidic, ideal range</p>
-    </div>
-    <div class="card">
-      <h3>🪴 Nutrient Levels</h3>
-      <p class="value">Balanced</p>
-      <p class="subtext">Nitrogen & Phosphorus sufficient</p>
-    </div>
-    <div class="card">
-      <h3>📈 Moisture Trend</h3>
-      <p class="value">Stable ↑</p>
-      <p class="subtext">Maintained by irrigation</p>
-    </div>
-  </div>
-					
-				</div>
-
-				<!-- Irrigation -->
-				<div id="irrigation" class="tab-background">
-
-					<h2>Irrigation Analytics</h2>
-
-  <div class="chart-wrapper">
-  <canvas id="irrigationChart"></canvas>
-    
-  </div>
-
-  <div class="cards">
-    <div class="card">
-      <h3>🚰 Total Water Usage</h3>
-      <p class="value">320 L</p>
-      <p class="subtext">Expected today</p>
-    </div>
-    <div class="card">
-      <h3>⚡ Total Energy Usage</h3>
-      <p class="value">45 kWh</p>
-      <p class="subtext">During irrigation</p>
-    </div>
-    <div class="card">
-      <h3>🕒 Next Irrigation</h3>
-      <p class="value">14:00 - 15:00</p>
-      <p class="subtext">Scheduled time</p>
-    </div>
-    <div class="card">
-      <h3>🌧️ Delay Notice</h3>
-      <p class="value">Expected Rainfall</p>
-      <p class="subtext">Irrigation paused</p>
-    </div>
-  </div>
-										
-				</div>
-
-				<!-- Energy -->
-				<div id="energy" class="tab-background">
-					<h2>Energy Analytics</h2>
-
-  <div class="chart-wrapper">
-  <canvas id="energyChart"></canvas>
-    
-  </div>
-
-  <div class="cards">
-    <div class="card">
-      <h3>🌬️ Wind Energy Generated</h3>
-      <p class="value">120 kWh</p>
-      <p class="subtext">Expected: 150 kWh</p>
-    </div>
-    <div class="card">
-      <h3>☀️ Solar Energy Generated</h3>
-      <p class="value">80 kWh</p>
-      <p class="subtext">Expected: 100 kWh</p>
-    </div>
-    <div class="card">
-      <h3>🌡️ Avg Temperature</h3>
-      <p class="value">35°C</p>
-      <p class="subtext">average temperature of the day</p>
-    </div>
-    <div class="card">
-      <h3>💨 Avg Wind Speed</h3>
-      <p class="value">25 m/s</p>
-      <p class="subtext">Average wind speed of the day</p>
-    </div>
-    <div class="card">
-      <h3>🔋 Battery Health</h3>
-      <p class="value">95%</p>
-      <p class="subtext">System performing optimally</p>
-    </div>
-    <div class="card">
-      <h3>⚡ Available Power</h3>
-      <p class="value">200 kWh</p>
-      <p class="subtext">Power ready for consumption</p>
-    </div>
-    <div class="card">
-      <h3>🕒 Energy Storage Level</h3>
-      <p class="value">65%</p>
-      <p class="subtext">Current battery storage</p>
-    </div>
-    <div class="card">
-      <h3>📊 Efficiency</h3>
-      <p class="value">88%</p>
-      <p class="subtext">Energy conversion efficiency</p>
-    </div>
-  </div>
-					
-				</div>
-
-				<!-- Garden -->
-				<div id="garden" class="tab-background">
-					 <h2>Garden Monitoring</h2>
-
-  <div class="garden-wrapper">
-  <canvas id="gardenCanvas" width="900" height="350"></canvas>
-  </div>
-
-  <div class="cards">
-    <div class="card">
-  <h3>🌱 Non-Active Sensors</h3>
-  <p class="value">B1, D2, H5, I2</p>
-  <p class="subtext">Needs Maintenance</p>
-    </div>
-    <div class="card">
-  <h3>📡 Active Sensors</h3>
-  <p class="value">46 / 50</p>
-  <p class="subtext">Online</p>
-    </div>
-    <div class="card">
-  <h3>💧 Moisture Alerts</h3>
-  <p class="value">None</p>
-  <p class="subtext">All sensors normal</p>
-    </div>
-    <div class="card">
-  <h3>� Average Moisture</h3>
-  <p class="value">56%</p>
-  <p class="subtext">Within the range</p>
-    </div>
-  </div>
-					
-				</div>
-
+			<div class="chatbot-input">
+				<input type="text" placeholder="Type a message..." />
+				<button>Send</button>
 			</div>
 		</div>
-		<script src="script.js"></script>
+	</div>
+    </div>
+    <script src="script.js"></script>
+    <script src="script.js"></script>
+	<script>
+		document.getElementById("chatbotBtn").addEventListener("click", () => {
+			document.getElementById("chatbotDialog").style.display = "flex";
+		});
+		document.getElementById("closeChatbot").addEventListener("click", () => {
+			document.getElementById("chatbotDialog").style.display = "none";
+		});
+	</script>
+  </body>
+</html>
 	</body>
 </html>

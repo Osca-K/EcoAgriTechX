@@ -504,3 +504,22 @@ function drawGarden() {
 }
 
 document.addEventListener("DOMContentLoaded", drawGarden);
+
+
+
+document.getElementById("irrigNextBtn").addEventListener("click", () => {
+  if (start + range < labels.length) {
+    start++;
+    window._irrigationChartInstance.data = getChartData();
+    window._irrigationChartInstance.update();
+  }
+});
+
+
+
+document.getElementById("chatbotBtn").addEventListener("click", () => {
+  document.getElementById("chatbotDialog").style.display = "flex";
+});
+document.getElementById("closeChatbot").addEventListener("click", () => {
+  document.getElementById("chatbotDialog").style.display = "none";
+});
