@@ -9,21 +9,21 @@ const ctx = document.getElementById("monitoringChart").getContext("2d");
 new Chart(ctx, {
   type: "line",
   data: {
-    labels: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "22:00"],
+    labels: ["00:00", "04:00", "08:00", "12:00", "14:00", "16:00", "20:00", "22:00"],
     datasets: [
       {
-  label: "Average Temperature (°C)",
-        data: [13, 11, 19, 27, 26, 19, 21],
+        label: "Average Temperature (°C)",
+        data: [12, 13, 18, 25, 28, 30, 22, 18], // rises through the day, peaks mid-afternoon
         borderColor: "#ff7300",
         borderWidth: 2,
-        pointRadius: 0, // 🔹 remove dots
-        tension: 0.4,   // smooth curve
+        pointRadius: 0,
+        tension: 0.4,
         fill: true,
         backgroundColor: "rgba(255, 115, 0, 0.15)",
       },
       {
         label: "Soil Moisture (%)",
-        data: [45, 50, 60, 65, 70, 55, 50],
+        data: [70, 68, 60, 52, 65, 60, 55, 53], // high early, drops as it gets hot, rises after irrigation, drops again
         borderColor: "#00c49f",
         borderWidth: 2,
         pointRadius: 0,
@@ -33,23 +33,13 @@ new Chart(ctx, {
       },
       {
         label: "Water Usage (L)",
-        data: [10, 15, 30, 50, 60, 40, 20],
+        data: [0, 0, 0, 30, 40, 0, 0, 0], // irrigation at noon and 14:00
         borderColor: "#0088fe",
         borderWidth: 2,
         pointRadius: 0,
         tension: 0.4,
         fill: true,
         backgroundColor: "rgba(0, 136, 254, 0.15)",
-      },
-      {
-        label: "Electricity (kWh)",
-        data: [20, 25, 35, 55, 65, 45, 30],
-        borderColor: "#ff0000",
-        borderWidth: 2,
-        pointRadius: 0,
-        tension: 0.4,
-        fill: true,
-        backgroundColor: "rgba(255, 0, 0, 0.15)",
       },
     ],
   },
@@ -129,7 +119,7 @@ new Chart(ctx, {
         grid: { color: "rgba(255,255,255,0.1)" },
       },
       y: {
-        ticks: { color: "#fff" },
+        ticks: { color: "#222" }, // dark color for visibility
         grid: { color: "rgba(255,255,255,0.1)" },
       },
     },
@@ -164,8 +154,8 @@ new Chart(ctx, {
 const soilCtx = document.getElementById("soilChart").getContext("2d");
 
 // Simulated soil data
-const soilLabels = ["00:00","04:00","08:00","12:00","16:00","20:00","22:00"];
-const soilData = [45, 50, 60, 65, 70, 55, 50]; // Replace with live data
+const soilLabels = ["00:00","04:00","08:00","12:00","14:00","16:00","20:00","22:00"];
+const soilData = [70, 68, 60, 52, 65, 60, 55, 53]; // realistic: high early, drops, rises after irrigation, drops again
 
 let soilStart = 0;
 let soilRange = 7;
@@ -251,7 +241,7 @@ const soilChart = new Chart(soilCtx, {
 
 
 // Sidebar navigation tab switching
-const tabIds = ['dashboard', 'growth', 'irrigation', 'energy', 'garden'];
+const tabIds = ['dashboard', 'growth', 'irrigation', 'garden'];
 document.querySelectorAll('.nav li').forEach((tab, idx) => {
   tab.addEventListener('click', () => {
     tabIds.forEach(id => {
@@ -276,9 +266,9 @@ document.querySelectorAll('.nav li').forEach((tab, idx) => {
 const energyCtx = document.getElementById("energyChart").getContext("2d");
 
 // Simulated datasets
-const energyLabels = ["00:00","04:00","08:00","12:00","16:00","20:00","22:00"];
-const solarData = [10, 20, 50, 70, 90, 80, 60];
-const windData  = [30, 40, 60, 80, 120, 100, 70];
+const energyLabels = ["00:00","04:00","08:00","12:00","14:00","16:00","20:00","22:00"];
+const solarData = [0, 5, 30, 60, 80, 70, 20, 0]; // solar starts at sunrise, peaks midday, drops at sunset
+const windData  = [10, 15, 25, 40, 50, 45, 30, 20]; // wind is moderate, peaks midday
 
 let energyStart = 0;
 let energyRange = 7;
@@ -353,8 +343,8 @@ document.getElementById("energyPrevBtn").addEventListener("click", () => {
 function initIrrigationChart() {
   const ctx = document.getElementById("irrigationChart").getContext("2d");
 
-  const labels = ["06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00"];
-  const waterData = [0, 50, 100, 100, 50, 0, 0, 0, 70, 0];
+  const labels = ["06:00","08:00","10:00","12:00","14:00","16:00","18:00","20:00","22:00"];
+  const waterData = [0, 0, 0, 30, 40, 0, 0, 0, 0]; // irrigation at noon and 14:00
   const energyData = [0, 5, 10, 10, 5, 0, 0, 0, 8, 0];
 
   let start = 0;
@@ -374,16 +364,7 @@ function initIrrigationChart() {
           tension: 0.4,
           pointRadius: 0,
         },
-        {
-          label: "Energy Usage (kWh)",
-          data: energyData.slice(start, start + range),
-          borderColor: "#ff7300",
-          backgroundColor: "rgba(255,115,0,0.2)",
-          fill: true,
-          borderWidth: 2,
-          tension: 0.4,
-          pointRadius: 0,
-        }
+  // ...existing code...
       ]
     };
   }
@@ -523,3 +504,5 @@ document.getElementById("chatbotBtn").addEventListener("click", () => {
 document.getElementById("closeChatbot").addEventListener("click", () => {
   document.getElementById("chatbotDialog").style.display = "none";
 });
+
+
